@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/banner_widget.dart';
+import 'package:sarang_app/src/common_widgets/custom_button_widget.dart';
+import 'package:sarang_app/src/common_widgets/custom_text_button_widget.dart';
 import 'package:sarang_app/src/common_widgets/custom_text_field_widget.dart';
 import 'package:sarang_app/src/theme_manager/values_manager.dart';
 
@@ -49,6 +51,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   hintext: 'Write your security',
                   controller: passwordController,
                   isObsecure: true),
+              const SizedBox(
+                height: AppSize.s16,
+              ),
+              CustomeButtonWidget(
+                title: 'Get Started',
+                onTap: () {},
+              ),
+              const SizedBox(
+                height: AppSize.s20,
+              ),
+              CustomTextbuttonWidget(
+                  title: 'Sign In to My Account', onPressed: () {})
             ],
           ),
         ),
