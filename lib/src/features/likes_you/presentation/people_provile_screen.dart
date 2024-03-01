@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sarang_app/src/common_widgets/match_button_widget.dart';
+import 'package:sarang_app/src/common_widgets/custom_button_widget.dart';
+import 'package:sarang_app/src/common_widgets/people_identity_widget.dart';
+import 'package:sarang_app/src/common_widgets/profile_detail_image_widget.dart';
 import 'package:sarang_app/src/theme_manager/asset_image_icon_manager.dart';
-import 'package:sarang_app/src/theme_manager/font_manager.dart';
-import 'package:sarang_app/src/theme_manager/style_manager.dart';
 import 'package:sarang_app/src/theme_manager/values_manager.dart';
 
 class PeopleProfileScreen extends StatelessWidget {
@@ -14,71 +14,47 @@ class PeopleProfileScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 420.0,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                        '${AssetImageIconManager.assetPath}/people_love1_image.png'),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppPadding.p40,
-                  horizontal: AppPadding.p26,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MatchButtonWidget(
-                        dimension: 20.0,
-                        onTap: () {},
-                        iconPath: 'icon_arrow_left.png'),
-                    Text(
-                      'Lover Profile\nDetails',
-                      textAlign: TextAlign.center,
-                      style: getWhiteTextStyle(
-                          fontWeight: FontWeightManager.semiBold,
-                          fontSize: FontSizeManager.f20),
-                    ),
-                    MatchButtonWidget(
-                        dimension: 20.0,
-                        onTap: () {},
-                        iconPath: 'icon_close_circle.png')
-                  ],
-                ),
-              )
-            ],
-          ),
+          const ProfileDetailImageWidget(),
           const SizedBox(
             height: AppSize.s30,
           ),
+          const PeopleIdentityWidget(),
+          Container(
+            height: 80.0,
+            margin: const EdgeInsets.only(
+              left: AppMargin.m24,
+            ),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 120.0,
+                  height: 80.0,
+                  margin: const EdgeInsets.only(right: AppMargin.m16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppSize.s18),
+                    image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        '${AssetImageIconManager.assetPath}/hobby2_image.png',
+                      ),
+                    ),
+                  ),
+                );
+              },
+              itemCount: 4,
+            ),
+          ),
+          const SizedBox(
+            height: AppSize.s40,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Shyna',
-                  style: getWhiteTextStyle(
-                      fontSize: FontSizeManager.f28,
-                      fontWeight: FontWeightManager.semiBold),
-                ),
-                Text('22, Lawyer', style: getBlackTextStyle()),
-                const SizedBox(
-                  height: AppSize.s16,
-                ),
-                Text(
-                    'I love solving problem in terms of finance, businses, and bla bla bla bla, solve all world problems.',
-                    style: getWhiteTextStyle()),
-              ],
-            ),
-          )
+            child: CustomeButtonWidget(title: 'Chat Now', onTap: () {}),
+          ),
+          const SizedBox(
+            height: AppSize.s40,
+          ),
         ],
       ),
     );
