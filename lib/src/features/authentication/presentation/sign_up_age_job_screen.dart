@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/banner_widget.dart';
 import 'package:sarang_app/src/common_widgets/custom_button_widget.dart';
 import 'package:sarang_app/src/common_widgets/custom_text_field_widget.dart';
+import 'package:sarang_app/src/features/authentication/presentation/sign_up_upload_photo_screen.dart';
 import 'package:sarang_app/src/theme_manager/values_manager.dart';
 
 class SignUpAgeJobScreen extends StatefulWidget {
@@ -48,7 +49,12 @@ class _SignUpAgeJobScreenState extends State<SignUpAgeJobScreen> {
               const SizedBox(
                 height: 117.0,
               ),
-              CustomeButtonWidget(title: 'Continue Sign Up', onTap: () {})
+              CustomeButtonWidget(
+                  title: 'Continue Sign Up',
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, SignUpUploadPhotoScreen.routeName);
+                  })
             ],
           ),
         ),
