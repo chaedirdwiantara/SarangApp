@@ -27,6 +27,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
+  String? validationInput() {
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      return 'Name or Email or Password  can\'t be empty';
+    }
+
+    if (nameController.text.length < 4 ||
+        emailController.text.length < 4 ||
+        passwordController.text.length < 4) {
+      return 'Too short, minimum 4 characters';
+    }
+
+    if (!emailController.text.contains('@')) {
+      return 'Invalid email or password';
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +78,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               CustomeButtonWidget(
                 title: 'Get Started',
                 onTap: () {
+                  final message = validationInput();
+                  if (message != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(message),
+                      ),
+                    );
+                    return;
+                  }
                   Navigator.push(
                     context,
                     MaterialPageRoute(
