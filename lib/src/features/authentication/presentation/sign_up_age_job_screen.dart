@@ -2,12 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/banner_widget.dart';
 import 'package:sarang_app/src/common_widgets/custom_button_widget.dart';
 import 'package:sarang_app/src/common_widgets/custom_text_field_widget.dart';
+import 'package:sarang_app/src/features/authentication/domain/user_account.dart';
 import 'package:sarang_app/src/features/authentication/presentation/sign_up_upload_photo_screen.dart';
 import 'package:sarang_app/src/theme_manager/values_manager.dart';
 
 class SignUpAgeJobScreen extends StatefulWidget {
   static const String routeName = '/sign-up-age-job';
-  const SignUpAgeJobScreen({super.key});
+  const SignUpAgeJobScreen(
+      {super.key,
+      required this.fullname,
+      required this.email,
+      required this.password});
+
+  final String fullname;
+  final String email;
+  final String password;
 
   @override
   State<SignUpAgeJobScreen> createState() => _SignUpAgeJobScreenState();
@@ -44,17 +53,28 @@ class _SignUpAgeJobScreenState extends State<SignUpAgeJobScreen> {
               CustomTextFieldWidget(
                 labelName: 'Age',
                 hintext: 'Write your age',
-                controller: jobController,
+                controller: ageController,
               ),
               const SizedBox(
                 height: 117.0,
               ),
               CustomeButtonWidget(
-                  title: 'Continue Sign Up',
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context, SignUpUploadPhotoScreen.routeName);
-                  })
+                title: 'Continue Sign Up',
+                onTap: () {
+                  UserAccount userAccount = UserAccount(
+                    fullname: widget.fullname,
+                    email: widget.email,
+                    password: widget.password,
+                    ocuupation: jobController.text,
+                    age: ageController.text,
+                  );
+                  Navigator.pushNamed(
+                    context,
+                    SignUpUploadPhotoScreen.routeName,
+                    arguments: userAccount,
+                  );
+                },
+              ),
             ],
           ),
         ),
