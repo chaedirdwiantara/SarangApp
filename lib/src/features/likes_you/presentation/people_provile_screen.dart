@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/custom_button_widget.dart';
 import 'package:sarang_app/src/common_widgets/people_identity_widget.dart';
 import 'package:sarang_app/src/common_widgets/profile_detail_image_widget.dart';
+import 'package:sarang_app/src/features/likes_you/domain/user.dart';
 import 'package:sarang_app/src/theme_manager/asset_image_icon_manager.dart';
 import 'package:sarang_app/src/theme_manager/values_manager.dart';
 
@@ -11,14 +12,16 @@ class PeopleProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = ModalRoute.of(context)?.settings.arguments as User;
+
     return Scaffold(
       body: Column(
         children: [
-          const ProfileDetailImageWidget(),
+          ProfileDetailImageWidget(imagePath: user.imagePath),
           const SizedBox(
             height: AppSize.s30,
           ),
-          const PeopleIdentityWidget(),
+          PeopleIdentityWidget(user: user),
           Container(
             height: 80.0,
             margin: const EdgeInsets.only(
@@ -36,8 +39,7 @@ class PeopleProfileScreen extends StatelessWidget {
                     image: const DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage(
-                        '${AssetImageIconManager.assetPath}/hobby2_image.png',
-                      ),
+                          '${AssetImageIconManager.assetPath}/hobby2_image.png'),
                     ),
                   ),
                 );

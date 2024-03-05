@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:sarang_app/src/features/likes_you/domain/user.dart';
 import 'package:sarang_app/src/features/likes_you/presentation/people_provile_screen.dart';
-import 'package:sarang_app/src/theme_manager/asset_image_icon_manager.dart';
 import 'package:sarang_app/src/theme_manager/color_manager.dart';
 import 'package:sarang_app/src/theme_manager/font_manager.dart';
 import 'package:sarang_app/src/theme_manager/style_manager.dart';
 import 'package:sarang_app/src/theme_manager/values_manager.dart';
 
 class PeopleLovedCardWidget extends StatelessWidget {
-  const PeopleLovedCardWidget({super.key});
+  const PeopleLovedCardWidget({super.key, required this.user});
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,11 @@ class PeopleLovedCardWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p24),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, PeopleProfileScreen.routeName);
+          Navigator.pushNamed(
+            context,
+            PeopleProfileScreen.routeName,
+            arguments: user,
+          );
         },
         child: Container(
           margin: const EdgeInsets.only(bottom: AppMargin.m18),
@@ -28,23 +34,22 @@ class PeopleLovedCardWidget extends StatelessWidget {
             leading: Container(
               width: 70.0,
               height: 70.0,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(
-                        '${AssetImageIconManager.assetPath}/people_love3_image.png'),
+                    image: AssetImage(user.imagePath),
                   )),
             ),
             title: Text(
-              'Ismirada',
+              user.fullName,
               style: getWhiteTextStyle(
                 fontSize: FontSizeManager.f20,
                 fontWeight: FontWeightManager.semiBold,
               ),
             ),
             subtitle: Text(
-              '24, Doctor',
+              '${user.age}, ${user.occupation}',
               style: getGrey60TextStyle(),
             ),
           ),

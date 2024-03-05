@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/match_button_widget.dart';
-import 'package:sarang_app/src/theme_manager/asset_image_icon_manager.dart';
+import 'package:sarang_app/src/features/likes_you/presentation/explore_people_screen.dart';
 import 'package:sarang_app/src/theme_manager/font_manager.dart';
 import 'package:sarang_app/src/theme_manager/style_manager.dart';
 import 'package:sarang_app/src/theme_manager/values_manager.dart';
 
 class ProfileDetailImageWidget extends StatelessWidget {
-  const ProfileDetailImageWidget({
-    Key? key,
-  }) : super(key: key);
+  const ProfileDetailImageWidget({Key? key, required this.imagePath})
+      : super(key: key);
+
+  final String imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +18,10 @@ class ProfileDetailImageWidget extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 420.0,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage(
-                  '${AssetImageIconManager.assetPath}/people_love1_image.png'),
+              image: AssetImage(imagePath),
             ),
           ),
         ),
@@ -35,7 +35,9 @@ class ProfileDetailImageWidget extends StatelessWidget {
             children: [
               MatchButtonWidget(
                   dimension: 20.0,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                   iconPath: 'icon_arrow_left.png'),
               Text(
                 'Lover Profile\nDetails',
@@ -46,7 +48,13 @@ class ProfileDetailImageWidget extends StatelessWidget {
               ),
               MatchButtonWidget(
                   dimension: 20.0,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      ExplorePeopleScreen.routeName,
+                      (route) => false,
+                    );
+                  },
                   iconPath: 'icon_close_circle.png')
             ],
           ),
