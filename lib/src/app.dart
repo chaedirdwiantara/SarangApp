@@ -34,6 +34,7 @@ class _AppScreenState extends State<AppScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Material App',
       theme: getApplicationThemeData(),
       home: isRegister ? const ExplorePeopleScreen() : const SignUpScreen(),
