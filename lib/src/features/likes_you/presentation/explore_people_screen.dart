@@ -6,7 +6,8 @@ import 'package:sarang_app/src/common_widgets/explore_people_button_widget.dart'
 import 'package:sarang_app/src/common_widgets/match_card_widget.dart';
 import 'package:sarang_app/src/features/authentication/data/data_user_account.dart';
 import 'package:sarang_app/src/features/authentication/domain/user_account.dart';
-import 'package:sarang_app/src/features/likes_you/presentation/bloc/explore_people_bloc.dart';
+import 'package:sarang_app/src/features/likes_you/presentation/bloc/explore_people/explore_people_bloc.dart';
+import 'package:sarang_app/src/features/likes_you/presentation/bloc/people_loved/people_loved_bloc.dart';
 import 'package:sarang_app/src/theme_manager/values_manager.dart';
 
 class ExplorePeopleScreen extends StatefulWidget {
@@ -79,12 +80,34 @@ class _ExplorePeopleScreenState extends State<ExplorePeopleScreen> {
                             return card;
                           },
                           cardsCount: cards.length,
+                          onSwipe: (index, direction) {
+                            if (direction == AppinioSwiperDirection.top) {
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Yey!, you matched with ${users[index - 1].fullName}'),
+                                ),
+                              );
+
+                              if (direction != AppinioSwiperDirection.left &&
+                                  direction != AppinioSwiperDirection.right &&
+                                  direction != AppinioSwiperDirection.bottom) {
+                                context.read<PeopleLovedBloc>().add(
+                                      AddPeopleLoved(user: users[index - 1]),
+                                    );
+                              }
+                            }
+                          },
                           onEnd: () {
                             context
                                 .read<ExplorePeopleBloc>()
                                 .add(OnExplorePeopleEventCalled());
                           },
                           controller: cardController,
+                          padding: EdgeInsets.zero,
                         ),
                       ),
                       const SizedBox(
