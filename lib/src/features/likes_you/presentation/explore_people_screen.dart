@@ -87,7 +87,7 @@ class _ExplorePeopleScreenState extends State<ExplorePeopleScreen> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                      'Yey!, you matched with ${users[index - 1].fullName}'),
+                                      'Congrats!, you matched with ${users[index - 1].fullName}'),
                                 ),
                               );
 
